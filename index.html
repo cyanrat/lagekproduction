@@ -1,4 +1,4 @@
-```html id="landscapevid1"
+```html id="fixfull1"
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -35,19 +35,17 @@
       height: 100%;
       border-radius: 12px;
       overflow: hidden;
-      display: none;
+      display: none; /* FIX utama */
       box-shadow: 0 10px 20px rgba(0,0,0,0.5);
       background: black;
-
-      display: flex;
       align-items: center;
     }
 
     .card.active {
-      display: flex;
+      display: flex; /* hanya aktif */
     }
 
-    /* LABEL KIRI */
+    /* label kiri */
     .episode-side {
       width: 120px;
       height: 100%;
@@ -59,18 +57,17 @@
       letter-spacing: 2px;
     }
 
-    /* VIDEO LANDSCAPE */
+    /* video */
     .video-container {
       flex: 1;
       height: 100%;
       display: flex;
-      align-items: center;
       justify-content: center;
+      align-items: center;
     }
 
     .video-container video {
       width: 100%;
-      height: auto;
       max-height: 100%;
       aspect-ratio: 16 / 9;
       border-radius: 12px;
@@ -88,7 +85,7 @@
       font-size: 30px;
       padding: 15px;
       cursor: pointer;
-      z-index: 50;
+      z-index: 999; /* biar gak ketutup */
     }
 
     .prev { left: 20px; }
@@ -119,50 +116,49 @@
 
   <div class="slider">
 
-    <!-- CARD -->
-    <div class="card active video-card">
+    <div class="card active">
       <div class="episode-side">EPS 1</div>
       <div class="video-container">
         <video src="TheCard1.mp4" controls></video>
       </div>
     </div>
 
-    <div class="card video-card">
+    <div class="card">
       <div class="episode-side">EPS 2</div>
       <div class="video-container">
         <video src="TheCard2.mp4" controls></video>
       </div>
     </div>
 
-    <div class="card video-card">
+    <div class="card">
       <div class="episode-side">EPS 3</div>
       <div class="video-container">
         <video src="TheCard3.mp4" controls></video>
       </div>
     </div>
 
-    <div class="card video-card">
+    <div class="card">
       <div class="episode-side">EPS 4</div>
       <div class="video-container">
         <video src="TheCard5.mp4" controls></video>
       </div>
     </div>
 
-    <div class="card video-card">
+    <div class="card">
       <div class="episode-side">EPS 5</div>
       <div class="video-container">
         <video src="tobecon.mp4" controls></video>
       </div>
     </div>
 
-    <div class="card video-card">
+    <div class="card">
       <div class="episode-side">EPS 6</div>
       <div class="video-container">
         <video src="TheCard5.mp4" controls></video>
       </div>
     </div>
 
-    <div class="card video-card">
+    <div class="card">
       <div class="episode-side">EPS 7</div>
       <div class="video-container">
         <video src="tobecon.mp4" controls></video>
@@ -179,6 +175,7 @@ let index = 0;
 function showCard(i) {
   cards.forEach(card => {
     const video = card.querySelector('video');
+
     card.classList.remove('active');
 
     if (video) {
