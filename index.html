@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>The Deck</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <style>
     html, body {
       margin: 0;
@@ -17,44 +17,33 @@
 
     .wrapper {
       display: flex;
+      justify-content: center;
       align-items: center;
       height: 100vh;
-      overflow: hidden;
+      position: relative;
     }
 
-    .scroll-container {
-      display: flex;
-      flex-direction: row;
-      gap: 20px;
-      padding: 20px 80px;
-      box-sizing: border-box;
-      overflow-x: auto;
-      overflow-y: hidden;
-      scroll-behavior: smooth;
-      align-items: center;
-      height: 100%;
-      -webkit-overflow-scrolling: touch;
+    .slider {
+      width: 400px;
+      height: 566px;
+      position: relative;
     }
 
     .card {
-      flex: 0 0 auto;
-      width: 400px;
-      height: 566px;
+      position: absolute;
+      width: 100%;
+      height: 100%;
       border-radius: 12px;
-      transition: transform 0.3s ease;
-      position: relative;
-      cursor: default;
-      box-shadow: 0 0 8px rgba(0,0,0,0.3);
       overflow: hidden;
+      display: none;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.5);
       background: black;
     }
 
-    .card:hover {
-      transform: scale(1.03);
-      box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+    .card.active {
+      display: block;
     }
 
-    /* video */
     .card video {
       width: 100%;
       height: 100%;
@@ -77,43 +66,48 @@
       z-index: 20;
     }
 
-    .play-btn:hover {
-      background: rgba(0,0,0,0.8);
+    /* tombol navigasi */
+    .nav-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.1);
+      border: none;
+      color: white;
+      font-size: 30px;
+      padding: 15px;
+      cursor: pointer;
+      z-index: 50;
     }
 
-    /* tombol overlay link */
-    .fiverr-button, .insta-button {
-      position: absolute;
-      top: 0;
-      left: 0;
+    .nav-btn:hover {
+      background: rgba(255,255,255,0.3);
+    }
+
+    .prev {
+      left: 20px;
+    }
+
+    .next {
+      right: 20px;
+    }
+
+    /* link cards */
+    .link-card {
+      background-size: cover;
+      background-position: center;
+    }
+
+    .overlay-btn {
       width: 100%;
       height: 100%;
-      background-color: rgba(255, 255, 255, 0);
+      background: transparent;
       border: none;
       cursor: pointer;
-      z-index: 10;
-      outline: none;
     }
 
-    .fiverr-button:hover, .insta-button:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-    }
-
-    /* hide scrollbar */
-    .scroll-container::-webkit-scrollbar {
-      display: none;
-    }
-    .scroll-container {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
-    }
-
-    /* layar besar */
     @media screen and (min-width: 900px) {
-      .scroll-container {
-        padding: 20px 400px;
-      }
-      .card {
+      .slider {
         width: 794px;
         height: 1123px;
       }
@@ -123,84 +117,84 @@
 <body>
 
 <div class="wrapper">
-  <div class="scroll-container" id="scrollContainer">
+
+  <button class="nav-btn prev">←</button>
+  <button class="nav-btn next">→</button>
+
+  <div class="slider">
 
     <!-- VIDEO CARDS -->
-    <div class="card video-card">
-      <video src="TheCard1.mp4" preload="metadata"></video>
+    <div class="card active video-card">
+      <video src="TheCard1.mp4"></video>
       <button class="play-btn">▶</button>
     </div>
 
     <div class="card video-card">
-      <video src="TheCard2.mp4" preload="metadata"></video>
+      <video src="TheCard2.mp4"></video>
       <button class="play-btn">▶</button>
     </div>
 
     <div class="card video-card">
-      <video src="TheCard3.mp4" preload="metadata"></video>
+      <video src="TheCard3.mp4"></video>
       <button class="play-btn">▶</button>
     </div>
 
     <div class="card video-card">
-      <video src="TheCard5.mp4" preload="metadata"></video>
+      <video src="TheCard5.mp4"></video>
       <button class="play-btn">▶</button>
     </div>
 
     <div class="card video-card">
-      <video src="tobecon.mp4" preload="metadata"></video>
+      <video src="tobecon.mp4"></video>
       <button class="play-btn">▶</button>
     </div>
 
     <!-- LINK CARDS -->
-    <div class="card" style="background-image: url('FiverrCard.png'); background-size: cover;">
-      <button class="fiverr-button"
-        onclick="window.open('https://www.fiverr.com/s/99oGPL0', '_blank', 'noopener')">
-      </button>
+    <div class="card link-card" style="background-image:url('FiverrCard.png')">
+      <button class="overlay-btn"
+        onclick="window.open('https://www.fiverr.com/s/99oGPL0','_blank')"></button>
     </div>
 
-    <div class="card" style="background-image: url('InstaCard.png'); background-size: cover;">
-      <button class="insta-button"
-        onclick="window.open('https://www.instagram.com/rottenchunk_/', '_blank', 'noopener')">
-      </button>
+    <div class="card link-card" style="background-image:url('InstaCard.png')">
+      <button class="overlay-btn"
+        onclick="window.open('https://www.instagram.com/rottenchunk_/','_blank')"></button>
     </div>
 
   </div>
 </div>
 
 <script>
-const scrollContainer = document.getElementById('scrollContainer');
+const cards = document.querySelectorAll('.card');
+let index = 0;
 
-// autoplay scroll pakai mouse (desktop)
-function isDesktop() {
-  return window.matchMedia('(pointer: fine)').matches;
-}
+function showCard(i) {
+  cards.forEach(card => {
+    const video = card.querySelector('video');
+    const btn = card.querySelector('.play-btn');
 
-if (isDesktop()) {
-  document.addEventListener('mousemove', (e) => {
-    const screenWidth = window.innerWidth;
-    const mouseX = e.clientX;
+    card.classList.remove('active');
 
-    const edgeThreshold = 200;
-    const scrollSpeed = 40;
-
-    if (mouseX < edgeThreshold) {
-      scrollContainer.scrollLeft -= scrollSpeed;
-    } else if (mouseX > screenWidth - edgeThreshold) {
-      scrollContainer.scrollLeft += scrollSpeed;
+    if (video) {
+      video.pause();
+      video.currentTime = 0;
     }
+    if (btn) btn.style.display = 'block';
   });
+
+  cards[i].classList.add('active');
 }
 
-// disable zoom
-window.addEventListener('wheel', function (e) {
-  if (e.ctrlKey) e.preventDefault();
-}, { passive: false });
+document.querySelector('.next').onclick = () => {
+  index = (index + 1) % cards.length;
+  showCard(index);
+};
 
-['gesturestart', 'gesturechange', 'gestureend'].forEach(eventType => {
-  document.addEventListener(eventType, e => e.preventDefault());
-});
+document.querySelector('.prev').onclick = () => {
+  index = (index - 1 + cards.length) % cards.length;
+  showCard(index);
+};
 
-// PLAY VIDEO CONTROL
+// play button logic
 document.querySelectorAll('.video-card').forEach(card => {
   const video = card.querySelector('video');
   const btn = card.querySelector('.play-btn');
@@ -208,10 +202,6 @@ document.querySelectorAll('.video-card').forEach(card => {
   btn.addEventListener('click', () => {
     video.play();
     btn.style.display = 'none';
-  });
-
-  video.addEventListener('pause', () => {
-    btn.style.display = 'block';
   });
 
   video.addEventListener('ended', () => {
