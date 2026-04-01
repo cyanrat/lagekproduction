@@ -1,4 +1,4 @@
-```html id="smpg3k"
+```html id="landscapevid1"
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -24,8 +24,8 @@
     }
 
     .slider {
-      width: 500px;
-      height: 566px;
+      width: 900px;
+      height: 500px;
       position: relative;
     }
 
@@ -39,52 +39,42 @@
       box-shadow: 0 10px 20px rgba(0,0,0,0.5);
       background: black;
 
-      display: flex; /* penting */
+      display: flex;
+      align-items: center;
     }
 
     .card.active {
       display: flex;
     }
 
-    /* video area */
-    .video-container {
-      width: 75%;
-      height: 100%;
-      position: relative;
-    }
-
-    .video-container video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    /* sidebar episode */
+    /* LABEL KIRI */
     .episode-side {
-      width: 25%;
-      background: #000;
+      width: 120px;
+      height: 100%;
       color: white;
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 24px;
+      font-size: 20px;
       letter-spacing: 2px;
     }
 
-    /* tombol play */
-    .play-btn {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: rgba(0,0,0,0.6);
-      border: none;
-      color: white;
-      font-size: 40px;
-      padding: 15px 25px;
-      border-radius: 50%;
-      cursor: pointer;
-      z-index: 20;
+    /* VIDEO LANDSCAPE */
+    .video-container {
+      flex: 1;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .video-container video {
+      width: 100%;
+      height: auto;
+      max-height: 100%;
+      aspect-ratio: 16 / 9;
+      border-radius: 12px;
+      background: black;
     }
 
     /* tombol navigasi */
@@ -110,12 +100,12 @@
 
     @media screen and (min-width: 900px) {
       .slider {
-        width: 1000px;
-        height: 1123px;
+        width: 1200px;
+        height: 650px;
       }
 
       .episode-side {
-        font-size: 40px;
+        font-size: 28px;
       }
     }
   </style>
@@ -131,59 +121,52 @@
 
     <!-- CARD -->
     <div class="card active video-card">
-      <div class="video-container">
-        <video src="TheCard1.mp4"></video>
-        <button class="play-btn">▶</button>
-      </div>
       <div class="episode-side">EPS 1</div>
+      <div class="video-container">
+        <video src="TheCard1.mp4" controls></video>
+      </div>
     </div>
 
     <div class="card video-card">
-      <div class="video-container">
-        <video src="TheCard2.mp4"></video>
-        <button class="play-btn">▶</button>
-      </div>
       <div class="episode-side">EPS 2</div>
+      <div class="video-container">
+        <video src="TheCard2.mp4" controls></video>
+      </div>
     </div>
 
     <div class="card video-card">
-      <div class="video-container">
-        <video src="TheCard3.mp4"></video>
-        <button class="play-btn">▶</button>
-      </div>
       <div class="episode-side">EPS 3</div>
+      <div class="video-container">
+        <video src="TheCard3.mp4" controls></video>
+      </div>
     </div>
 
     <div class="card video-card">
-      <div class="video-container">
-        <video src="TheCard5.mp4"></video>
-        <button class="play-btn">▶</button>
-      </div>
       <div class="episode-side">EPS 4</div>
+      <div class="video-container">
+        <video src="TheCard5.mp4" controls></video>
+      </div>
     </div>
 
     <div class="card video-card">
-      <div class="video-container">
-        <video src="tobecon.mp4"></video>
-        <button class="play-btn">▶</button>
-      </div>
       <div class="episode-side">EPS 5</div>
+      <div class="video-container">
+        <video src="tobecon.mp4" controls></video>
+      </div>
     </div>
 
     <div class="card video-card">
-      <div class="video-container">
-        <video src="TheCard5.mp4"></video>
-        <button class="play-btn">▶</button>
-      </div>
       <div class="episode-side">EPS 6</div>
+      <div class="video-container">
+        <video src="TheCard5.mp4" controls></video>
+      </div>
     </div>
 
     <div class="card video-card">
-      <div class="video-container">
-        <video src="tobecon.mp4"></video>
-        <button class="play-btn">▶</button>
-      </div>
       <div class="episode-side">EPS 7</div>
+      <div class="video-container">
+        <video src="tobecon.mp4" controls></video>
+      </div>
     </div>
 
   </div>
@@ -196,15 +179,12 @@ let index = 0;
 function showCard(i) {
   cards.forEach(card => {
     const video = card.querySelector('video');
-    const btn = card.querySelector('.play-btn');
-
     card.classList.remove('active');
 
     if (video) {
       video.pause();
       video.currentTime = 0;
     }
-    if (btn) btn.style.display = 'block';
   });
 
   cards[i].classList.add('active');
@@ -219,20 +199,6 @@ document.querySelector('.prev').onclick = () => {
   index = (index - 1 + cards.length) % cards.length;
   showCard(index);
 };
-
-document.querySelectorAll('.video-card').forEach(card => {
-  const video = card.querySelector('video');
-  const btn = card.querySelector('.play-btn');
-
-  btn.addEventListener('click', () => {
-    video.play();
-    btn.style.display = 'none';
-  });
-
-  video.addEventListener('ended', () => {
-    btn.style.display = 'block';
-  });
-});
 </script>
 
 </body>
