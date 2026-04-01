@@ -1,0 +1,225 @@
+```html
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>The Deck</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: #111;
+      font-family: sans-serif;
+      overflow: hidden;
+      height: 100%;
+    }
+
+    .wrapper {
+      display: flex;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .scroll-container {
+      display: flex;
+      flex-direction: row;
+      gap: 20px;
+      padding: 20px 80px;
+      box-sizing: border-box;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-behavior: smooth;
+      align-items: center;
+      height: 100%;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .card {
+      flex: 0 0 auto;
+      width: 400px;
+      height: 566px;
+      border-radius: 12px;
+      transition: transform 0.3s ease;
+      position: relative;
+      cursor: default;
+      box-shadow: 0 0 8px rgba(0,0,0,0.3);
+      overflow: hidden;
+      background: black;
+    }
+
+    .card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+    }
+
+    /* video */
+    .card video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* tombol play */
+    .play-btn {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0,0,0,0.6);
+      border: none;
+      color: white;
+      font-size: 48px;
+      padding: 20px 30px;
+      border-radius: 50%;
+      cursor: pointer;
+      z-index: 20;
+    }
+
+    .play-btn:hover {
+      background: rgba(0,0,0,0.8);
+    }
+
+    /* tombol overlay link */
+    .fiverr-button, .insta-button {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0);
+      border: none;
+      cursor: pointer;
+      z-index: 10;
+      outline: none;
+    }
+
+    .fiverr-button:hover, .insta-button:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    /* hide scrollbar */
+    .scroll-container::-webkit-scrollbar {
+      display: none;
+    }
+    .scroll-container {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* layar besar */
+    @media screen and (min-width: 900px) {
+      .scroll-container {
+        padding: 20px 400px;
+      }
+      .card {
+        width: 794px;
+        height: 1123px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrapper">
+  <div class="scroll-container" id="scrollContainer">
+
+    <!-- VIDEO CARDS -->
+    <div class="card video-card">
+      <video src="TheCard1.mp4" preload="metadata"></video>
+      <button class="play-btn">▶</button>
+    </div>
+
+    <div class="card video-card">
+      <video src="TheCard2.mp4" preload="metadata"></video>
+      <button class="play-btn">▶</button>
+    </div>
+
+    <div class="card video-card">
+      <video src="TheCard3.mp4" preload="metadata"></video>
+      <button class="play-btn">▶</button>
+    </div>
+
+    <div class="card video-card">
+      <video src="TheCard5.mp4" preload="metadata"></video>
+      <button class="play-btn">▶</button>
+    </div>
+
+    <div class="card video-card">
+      <video src="tobecon.mp4" preload="metadata"></video>
+      <button class="play-btn">▶</button>
+    </div>
+
+    <!-- LINK CARDS -->
+    <div class="card" style="background-image: url('FiverrCard.png'); background-size: cover;">
+      <button class="fiverr-button"
+        onclick="window.open('https://www.fiverr.com/s/99oGPL0', '_blank', 'noopener')">
+      </button>
+    </div>
+
+    <div class="card" style="background-image: url('InstaCard.png'); background-size: cover;">
+      <button class="insta-button"
+        onclick="window.open('https://www.instagram.com/rottenchunk_/', '_blank', 'noopener')">
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const scrollContainer = document.getElementById('scrollContainer');
+
+// autoplay scroll pakai mouse (desktop)
+function isDesktop() {
+  return window.matchMedia('(pointer: fine)').matches;
+}
+
+if (isDesktop()) {
+  document.addEventListener('mousemove', (e) => {
+    const screenWidth = window.innerWidth;
+    const mouseX = e.clientX;
+
+    const edgeThreshold = 200;
+    const scrollSpeed = 40;
+
+    if (mouseX < edgeThreshold) {
+      scrollContainer.scrollLeft -= scrollSpeed;
+    } else if (mouseX > screenWidth - edgeThreshold) {
+      scrollContainer.scrollLeft += scrollSpeed;
+    }
+  });
+}
+
+// disable zoom
+window.addEventListener('wheel', function (e) {
+  if (e.ctrlKey) e.preventDefault();
+}, { passive: false });
+
+['gesturestart', 'gesturechange', 'gestureend'].forEach(eventType => {
+  document.addEventListener(eventType, e => e.preventDefault());
+});
+
+// PLAY VIDEO CONTROL
+document.querySelectorAll('.video-card').forEach(card => {
+  const video = card.querySelector('video');
+  const btn = card.querySelector('.play-btn');
+
+  btn.addEventListener('click', () => {
+    video.play();
+    btn.style.display = 'none';
+  });
+
+  video.addEventListener('pause', () => {
+    btn.style.display = 'block';
+  });
+
+  video.addEventListener('ended', () => {
+    btn.style.display = 'block';
+  });
+});
+</script>
+
+</body>
+</html>
+```
