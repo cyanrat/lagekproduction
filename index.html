@@ -1,4 +1,4 @@
-
+```html id="smpg3k"
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -24,7 +24,7 @@
     }
 
     .slider {
-      width: 400px;
+      width: 500px;
       height: 566px;
       position: relative;
     }
@@ -38,29 +38,37 @@
       display: none;
       box-shadow: 0 10px 20px rgba(0,0,0,0.5);
       background: black;
+
+      display: flex; /* penting */
     }
 
     .card.active {
-      display: block;
+      display: flex;
     }
 
-    .card video {
+    /* video area */
+    .video-container {
+      width: 75%;
+      height: 100%;
+      position: relative;
+    }
+
+    .video-container video {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
 
-    /* LABEL EPISODE */
-    .episode-label {
-      position: absolute;
-      top: 15px;
-      left: 15px;
-      background: rgba(0,0,0,0.6);
+    /* sidebar episode */
+    .episode-side {
+      width: 25%;
+      background: #000;
       color: white;
-      padding: 6px 12px;
-      border-radius: 6px;
-      font-size: 14px;
-      z-index: 30;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 24px;
+      letter-spacing: 2px;
     }
 
     /* tombol play */
@@ -72,8 +80,8 @@
       background: rgba(0,0,0,0.6);
       border: none;
       color: white;
-      font-size: 48px;
-      padding: 20px 30px;
+      font-size: 40px;
+      padding: 15px 25px;
       border-radius: 50%;
       cursor: pointer;
       z-index: 20;
@@ -93,22 +101,21 @@
       z-index: 50;
     }
 
+    .prev { left: 20px; }
+    .next { right: 20px; }
+
     .nav-btn:hover {
       background: rgba(255,255,255,0.3);
     }
 
-    .prev {
-      left: 20px;
-    }
-
-    .next {
-      right: 20px;
-    }
-
     @media screen and (min-width: 900px) {
       .slider {
-        width: 794px;
+        width: 1000px;
         height: 1123px;
+      }
+
+      .episode-side {
+        font-size: 40px;
       }
     }
   </style>
@@ -122,46 +129,61 @@
 
   <div class="slider">
 
+    <!-- CARD -->
     <div class="card active video-card">
-      <div class="episode-label">EPS 1</div>
-      <video src="TheCard1.mp4"></video>
-      <button class="play-btn">▶</button>
+      <div class="video-container">
+        <video src="TheCard1.mp4"></video>
+        <button class="play-btn">▶</button>
+      </div>
+      <div class="episode-side">EPS 1</div>
     </div>
 
     <div class="card video-card">
-      <div class="episode-label">EPS 2</div>
-      <video src="TheCard2.mp4"></video>
-      <button class="play-btn">▶</button>
+      <div class="video-container">
+        <video src="TheCard2.mp4"></video>
+        <button class="play-btn">▶</button>
+      </div>
+      <div class="episode-side">EPS 2</div>
     </div>
 
     <div class="card video-card">
-      <div class="episode-label">EPS 3</div>
-      <video src="TheCard3.mp4"></video>
-      <button class="play-btn">▶</button>
+      <div class="video-container">
+        <video src="TheCard3.mp4"></video>
+        <button class="play-btn">▶</button>
+      </div>
+      <div class="episode-side">EPS 3</div>
     </div>
 
     <div class="card video-card">
-      <div class="episode-label">EPS 4</div>
-      <video src="TheCard5.mp4"></video>
-      <button class="play-btn">▶</button>
+      <div class="video-container">
+        <video src="TheCard5.mp4"></video>
+        <button class="play-btn">▶</button>
+      </div>
+      <div class="episode-side">EPS 4</div>
     </div>
 
     <div class="card video-card">
-      <div class="episode-label">EPS 5</div>
-      <video src="tobecon.mp4"></video>
-      <button class="play-btn">▶</button>
+      <div class="video-container">
+        <video src="tobecon.mp4"></video>
+        <button class="play-btn">▶</button>
+      </div>
+      <div class="episode-side">EPS 5</div>
     </div>
 
     <div class="card video-card">
-      <div class="episode-label">EPS 6</div>
-      <video src="TheCard5.mp4"></video>
-      <button class="play-btn">▶</button>
+      <div class="video-container">
+        <video src="TheCard5.mp4"></video>
+        <button class="play-btn">▶</button>
+      </div>
+      <div class="episode-side">EPS 6</div>
     </div>
 
     <div class="card video-card">
-      <div class="episode-label">EPS 7</div>
-      <video src="tobecon.mp4"></video>
-      <button class="play-btn">▶</button>
+      <div class="video-container">
+        <video src="tobecon.mp4"></video>
+        <button class="play-btn">▶</button>
+      </div>
+      <div class="episode-side">EPS 7</div>
     </div>
 
   </div>
@@ -215,3 +237,4 @@ document.querySelectorAll('.video-card').forEach(card => {
 
 </body>
 </html>
+```
